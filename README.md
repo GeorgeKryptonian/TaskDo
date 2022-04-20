@@ -1,1 +1,1 @@
-https://georgekryptonian.github.io/TaskDo/
+*Link to the project - https://georgekryptonian.github.io/TaskDo/*
