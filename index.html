@@ -9,7 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="scripts/anime.min.js"></script>
-    <title>Lets Start</title>
+    <script src="scripts/index.js" defer></script>
+    <title>...</title>
 </head>
 <body class="font-['Inter',_sans-serif] leading-none">
 
@@ -17,22 +18,9 @@
     <div class="letsStartBlock font-bold text-center h-max opacity-[0]">
         <h1 class="text-[72px] text-[#5E5E5E]">TaskDo</h1>
         <p class="text-[24px] text-[#5E5E5E] mb-[30px]">Manage You Task Checklist Easily</p>
-        <button class="bg-[#B47AEA] rounded-[15px] w-[145px] h-[45px] text-[24px] text-white font-bold">Lets Start</button>
+        <button class="transition-all letsStartButton bg-[#B47AEA] rounded-[15px] w-[145px] h-[45px] text-[24px] text-white font-bold hover:ring hover:ring-offset-4 ring-[#B47AEA]">Lets Start</button>
     </div>
 </div>
 
-<script>
-
-    anime({
-        targets: '.letsStartBlock',
-        translateY: (window.innerHeight - document.querySelector('.letsStartBlock').clientHeight) / 2,
-        opacity: '1',
-        easing: 'easeInOutQuad'
-    });
-
-    //TODO 1. Add button animation
-    //TODO 2. Make an input field appear for a name
-
-</script>
 </body>
 </html>
