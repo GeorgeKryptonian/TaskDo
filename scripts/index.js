@@ -1,33 +1,29 @@
-let letsStartBlock = document.querySelector('.letsStartBlock');
-let letsStartButton = document.querySelector('.letsStartButton');
+let letsStartIntroBlock = document.querySelector('.letsStartIntroBlock');
+let letsStartIntroButton = document.querySelector('.letsStartIntroButton');
+let letsStartNameBlock = document.querySelector('.letsStartNameBlock');
 
 anime({
-    targets: '.letsStartBlock',
-    translateY: (window.innerHeight - letsStartBlock.clientHeight) / 2,
+    targets: '.letsStartIntroBlock',
+    translateY: (window.innerHeight - letsStartIntroBlock.clientHeight) / 2,
     opacity: '1',
     easing: 'easeInOutQuad',
 });
 
-letsStartButton.addEventListener('click', () => {
+letsStartIntroButton.addEventListener('click', () => {
     anime({
-        targets: '.letsStartBlock',
-        translateY: window.innerHeight - letsStartBlock.clientHeight,
+        targets: '.letsStartIntroBlock',
+        translateY: window.innerHeight - letsStartIntroBlock.clientHeight,
         opacity: '0',
         easing: 'easeInOutQuad',
     });
-    setTimeout(() => letsStartBlock.classList.add('hidden'), 1000)
-    // setTimeout(() => {
-    //     if (letsStartBlock.style.transform.includes(String(window.innerHeight - letsStartBlock.clientHeight))) {
-    //         console.log('test')
-    //         letsStartBlock.classList.add('hidden');
-    //     }
-    // }, 3000)
+    setTimeout(() => {
+        letsStartIntroBlock.classList.add('hidden');
+        letsStartNameBlock.classList.remove('hidden');
+        anime({
+            targets: '.letsStartNameBlock',
+            translateY: (window.innerHeight - letsStartNameBlock.clientHeight) / 2,
+            opacity: '1',
+            easing: 'easeInOutQuad',
+        });
+    }, 1000);
 })
-// anime({
-//     targets: '.letsStartBlock',
-//     translateY: (window.innerHeight - document.querySelector('.letsStartBlock').clientHeight),
-//     easing: 'easeInOutQuad',
-// });
-
-//TODO 1. Add button animation
-//TODO 2. Make an input field appear for a name
