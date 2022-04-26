@@ -1,6 +1,8 @@
 let letsStartIntroBlock = document.querySelector('.letsStartIntroBlock');
 let letsStartIntroButton = document.querySelector('.letsStartIntroButton');
-let letsStartNameBlock = document.querySelector('.letsStartNameBlock');
+let letsStartInputBlock = document.querySelector('.letsStartInputBlock');
+let letsStartInputName = document.querySelector('.letsStartInputName');
+let hr = document.querySelector('hr');
 
 anime({
     targets: '.letsStartIntroBlock',
@@ -9,7 +11,7 @@ anime({
     easing: 'easeInOutQuad',
 });
 
-letsStartIntroButton.addEventListener('click', () => {
+letsStartIntroButton.addEventListener('click', (target) => {
     anime({
         targets: '.letsStartIntroBlock',
         translateY: window.innerHeight - letsStartIntroBlock.clientHeight,
@@ -18,12 +20,31 @@ letsStartIntroButton.addEventListener('click', () => {
     });
     setTimeout(() => {
         letsStartIntroBlock.classList.add('hidden');
-        letsStartNameBlock.classList.remove('hidden');
+        letsStartInputBlock.classList.remove('hidden');
         anime({
-            targets: '.letsStartNameBlock',
-            translateY: (window.innerHeight - letsStartNameBlock.clientHeight) / 2,
+            targets: '.letsStartInputBlock',
+            translateY: (window.innerHeight - letsStartInputBlock.clientHeight) / 2,
             opacity: '1',
             easing: 'easeInOutQuad',
         });
     }, 1000);
 })
+
+letsStartInputName.addEventListener('input', (event) => {
+    if (event.target.value.length >= event.target.minLength && !event.target.value.slice(0, 2).includes(' ')) {
+        anime({
+            targets: hr,
+            borderColor: '#78B159',
+            width: '100%',
+            easing: 'easeInOutQuad',
+        })
+    } else {
+        anime({
+            targets: hr,
+            borderColor: '#FFFFFF',
+            width: 0,
+            easing: 'easeInOutQuad',
+        })
+    }
+})
+
