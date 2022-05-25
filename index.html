@@ -12,22 +12,58 @@
     <script src="scripts/index.js" defer></script>
     <title>...</title>
 </head>
-<body class="font-['Inter'] leading-none">
+<body class="font-['Inter'] leading-[0.9]">
 
 <div class="page h-screen flex flex-col items-center">
-    <div class="letsStartIntroBlock font-bold text-center h-max opacity-[0] hidden">
+    <div class="letsStartIntroBlock text-center font-bold h-max opacity-[0] hidden">
         <h1 class="text-[72px] text-[#5E5E5E]">TaskDo</h1>
         <p class="text-[24px] text-[#5E5E5E] mb-[30px]">Manage You Task Checklist Easily</p>
         <button class="letsStartIntroButton bg-[#B47AEA] rounded-[15px] w-[145px] h-[45px] text-[24px] text-white font-bold transition-[box-shadow] focus:ring-4 focus:ring-violet-200 hover:ring-4 hover:ring-violet-100">Lets Start</button>
     </div>
     <div class="letsStartInputBlock flex flex-col items-center opacity-[0] hidden">
-        <input class="letsStartInputName max-w-[300px] h-[45px] px-[15px] rounded-[15px] outline outline-gray-300 text-gray-300 transition-[color,_outline,_box-shadow] focus:outline focus:outline-[#B47AEA] focus:text-[#B47AEA] focus:ring-[6px] focus:ring-violet-100 placeholder:text-gray-300" type="text" placeholder="Name (2 to 16 characters)" maxlength="16" minlength="2">
-        <button class="letsStartInputButton flex justify-center items-center h-[3px] bg-green-500 rounded-[15px] w-0 text-[0px] text-white transition-[box-shadow] focus:ring-4 focus:ring-green-200 hover:ring-4 hover:ring-green-100">Save</button>
+        <input class="letsStartInputName max-w-[300px] h-[45px] px-[15px] rounded-[15px] outline outline-gray-300 text-gray-300 font-bold transition-[color,_outline,_box-shadow] focus:outline focus:outline-[#B47AEA] focus:text-[#B47AEA] focus:ring-[6px] focus:ring-violet-100 placeholder:text-gray-300" type="text" placeholder="Name (2 to 16 characters)" maxlength="16" minlength="2">
+        <button class="letsStartInputButton flex justify-center items-center h-[3px] bg-green-500 rounded-[15px] w-0 text-[0px] text-white font-bold transition-[box-shadow] focus:ring-4 focus:ring-green-200 hover:ring-4 hover:ring-green-100">Save</button>
     </div>
 
-    <div>
 
-    </div>
+    <header class="w-full flex items-center justify-between mt-[15px] mb-[84px] px-[50px]">
+        <div class="greeting flex items-center">
+            <img src="img/person.png" alt="person">
+            <div class="hiName_tasksPending flex flex-col text-[24px]">
+                <span class="hiName font-bold text-[#5E5E5E]">Hi <span></span> 👋🏽</span>
+                <span class="tasksPending text-[#EF6161]"><span class="amountOfTasks">4</span> tasks pending</span>
+            </div>
+        </div>
+        <h1 class="text-[74px] font-bold text-[#5E5E5E]">TaskDo</h1>
+        <button class="logout font-bold text-[24px] text-[#B47AEA]">Logout</button>
+    </header>
+
+    <main class="w-full lg:px-[220px] text-[24px]">
+            <button class="newTaskButton flex justify-between items-center font-bold text-[#B47AEA]">
+                <div class="plusCircle flex justify-center items-center w-[30px] h-[30px] mr-[12px] bg-[#B47AEA] text-white rounded-full">
+                    <img class="transition-[rotate]" src="img/plusIcon.svg" alt="plusIcon">
+                </div>
+                <span>Add New Task</span>
+            </button>
+
+        <div class="topDots transition-[height,_opacity] h-[0px] border-l-8 border-[#B47AEA] border-dotted my-[5px] ml-[11px] opacity-[0]"></div>
+
+        <textarea class="taskValue w-full h-[50px] p-[15px] rounded-[15px] font-medium transition-[color,_outline,_box-shadow,_opacity] outline outline-[#B47AEA] text-[#B47AEA] text-[22px] ring-[6px] ring-violet-100 resize-none placeholder:text-violet-200 opacity-[0]" placeholder="Write your task..." maxlength="128" oninput="auto_grow(this)"></textarea>
+
+        <div class="bottomDots transition-[height,_opacity] h-[0px] border-l-8 border-[#B47AEA] border-dotted my-[5px] ml-[11px] opacity-[0]"></div>
+
+        <button class="confirmButton flex justify-between items-center font-bold transition-[opacity] text-[#B47AEA] opacity-[0]">
+            <div class="plusCircle flex justify-center items-center w-[30px] h-[30px] mr-[12px] bg-[#B47AEA] text-white rounded-full">
+                <img src="img/plusIcon.svg" alt="plusIcon">
+            </div>
+            <span>Confirm</span>
+        </button>
+
+
+        <div class="taskList">
+
+        </div>
+    </main>
 </div>
 
 </body>

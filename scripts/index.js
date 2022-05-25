@@ -5,6 +5,22 @@ let letsStartInputBlock = document.querySelector('.letsStartInputBlock');
 let letsStartInputName = document.querySelector('.letsStartInputName');
 let letsStartInputButton = document.querySelector('.letsStartInputButton');
 
+
+let newTaskButton = document.querySelector('.newTaskButton');
+let confirmButton = document.querySelector('.confirmButton');
+let plusIcon = document.querySelector('.newTaskButton .plusCircle img')
+let taskButtonText = document.querySelector('.newTaskButton span')
+let topDots = document.querySelector('.topDots');
+let bottomDots = document.querySelector('.bottomDots');
+let taskValue = document.querySelector('.taskValue');
+let newTaskButtonCondition = true;
+let confirmButtonCondition = true;
+
+function auto_grow(element) {
+    element.style.height = "5px";
+    element.style.height = (element.scrollHeight)+"px";
+}
+
 if (localStorage.length === 0) {
     document.title = 'TaskDo | Lets Start';
     letsStartInputName.value = '';
@@ -18,6 +34,7 @@ if (localStorage.length === 0) {
     });
 
     letsStartIntroButton.addEventListener('click', () => {
+        //TODO Заменить промисами(то что ниже).
         anime({
             targets: '.letsStartIntroBlock',
             translateY: window.innerHeight - letsStartIntroBlock.clientHeight,
@@ -71,9 +88,45 @@ if (localStorage.length === 0) {
     })
 } else {
     document.title = `TaskDo | ${localStorage.getItem('name')}`;
+    document.querySelector('.hiName span').textContent = localStorage.getItem('name');
+
+    newTaskButton.addEventListener('click', () => {
+        if (newTaskButtonCondition) {
+            plusIcon.style.rotate = '45deg';
+            taskButtonText.textContent = 'Cancel';
+            topDots.style.height = '40px';
+            topDots.style.opacity = '1';
+            taskValue.style.opacity = '1';
+            taskValue.value = '';
+            newTaskButtonCondition = false;
+        } else {
+            plusIcon.style.rotate = '0deg';
+            taskButtonText.textContent = 'Add New Task';
+            topDots.style.height = '0px';
+            topDots.style.opacity = '0';
+            taskValue.style.opacity = '0';
+            bottomDots.style.height = '0px';
+            bottomDots.style.opacity = '0';
+            confirmButton.style.opacity = '0';
+            newTaskButtonCondition = true;
+        }
+    })
+
+    //TODO Заюзать регулярки для проверки
+
+    taskValue.addEventListener('input', (event) => {
+        if (event.target.value[0] !== ' ' && event.target.value[0] !== '\n' && event.target.value.length !== 0) {
+            bottomDots.style.height = '40px';
+            bottomDots.style.opacity = '1';
+            confirmButton.style.opacity = '1';
+        } else {
+            bottomDots.style.height = '0px';
+            bottomDots.style.opacity = '0';
+            confirmButton.style.opacity = '0';
+        }
+    })
+
     //! ()
 }
 
 //! () Animation of the appearance of the main content
-
-
