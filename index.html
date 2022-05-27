@@ -39,6 +39,7 @@
     </header>
 
     <main class="w-full lg:px-[220px] text-[24px]">
+        <div class="addingNewTaskBlock mb-[50px]">
             <button class="newTaskButton flex justify-between items-center font-bold text-[#B47AEA]">
                 <div class="plusCircle flex justify-center items-center w-[30px] h-[30px] mr-[12px] bg-[#B47AEA] text-white rounded-full">
                     <img class="transition-[rotate]" src="img/plusIcon.svg" alt="plusIcon">
@@ -46,25 +47,38 @@
                 <span>Add New Task</span>
             </button>
 
-        <div class="topDots transition-[height,_opacity] h-[0px] border-l-8 border-[#B47AEA] border-dotted my-[5px] ml-[11px] opacity-[0]"></div>
+            <div class="topDots transition-[height,_opacity] h-[0px] border-l-8 border-[#B47AEA] border-dotted my-[5px] ml-[11px] opacity-[0]"></div>
 
-        <textarea class="taskValue w-full h-[50px] p-[15px] rounded-[15px] font-medium transition-[color,_outline,_box-shadow,_opacity] outline outline-[#B47AEA] text-[#B47AEA] text-[22px] ring-[6px] ring-violet-100 resize-none placeholder:text-violet-200 opacity-[0]" placeholder="Write your task..." maxlength="128" oninput="auto_grow(this)"></textarea>
+            <textarea class="taskValue w-full h-[50px] p-[15px] rounded-[15px] font-medium transition-[color,_outline,_box-shadow,_opacity] outline outline-[#B47AEA] text-[#B47AEA] text-[22px] ring-[6px] ring-violet-100 resize-none placeholder:text-violet-200 opacity-[0]" placeholder="Write your task..." maxlength="128" oninput="auto_grow(this)" disabled=""></textarea>
 
-        <div class="bottomDots transition-[height,_opacity] h-[0px] border-l-8 border-[#B47AEA] border-dotted my-[5px] ml-[11px] opacity-[0]"></div>
+            <div class="bottomDots transition-[height,_opacity] h-[0px] border-l-8 border-[#B47AEA] border-dotted my-[5px] ml-[11px] opacity-[0]"></div>
 
-        <button class="confirmButton flex justify-between items-center font-bold transition-[opacity] text-[#B47AEA] opacity-[0]">
-            <div class="plusCircle flex justify-center items-center w-[30px] h-[30px] mr-[12px] bg-[#B47AEA] text-white rounded-full">
-                <img src="img/plusIcon.svg" alt="plusIcon">
+            <button class="confirmButton flex justify-between items-center font-bold transition-[opacity] text-[#B47AEA] opacity-[0]" disabled="">
+                <div class="plusCircle flex justify-center items-center w-[30px] h-[30px] mr-[12px] bg-[#B47AEA] text-white rounded-full">
+                    <img src="img/plusIcon.svg" alt="plusIcon">
+                </div>
+                <span>Confirm</span>
+            </button>
+        </div>
+
+
+        <div class="taskList flex flex-col text-[22px] leading-[1.2]">
+            <div class="task flex w-full mb-[22px]">
+                <div class="flex justify-between items-center max-w-[68px] w-full h-[25px] mr-[21px]">
+                    <img class="w-[22px] h-[23px] cursor-pointer" src="img/basket.svg" alt="basket">
+                    <div class="w-[25px] h-[25px] border-2 border-[#1E9CEA] rounded-[5px] cursor-pointer">
+                        <!-- img tick -->
+                    </div>
+                </div>
+                <span class="">Morning walk</span>
             </div>
-            <span>Confirm</span>
-        </button>
-
-
-        <div class="taskList">
-
         </div>
     </main>
 </div>
 
 </body>
 </html>
+
+<!--TODO • Deal with "disabled" when loading the page for some elements. -->
+
+<!--TODO • Solve the problem with the size of hidden elements inside "addingNewTaskBlock". -->
