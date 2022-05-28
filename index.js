@@ -14,7 +14,6 @@ let topDots = document.querySelector('.topDots');
 let bottomDots = document.querySelector('.bottomDots');
 let taskValue = document.querySelector('.taskValue');
 let newTaskButtonCondition = true;
-let confirmButtonCondition = true;
 
 function auto_grow(element) {
     element.style.height = "5px";
@@ -92,26 +91,33 @@ if (localStorage.length === 0) {
     document.title = `TaskDo | ${localStorage.getItem('name')}`;
     document.querySelector('.hiName span').textContent = localStorage.getItem('name');
 
+    //TODO • Animating the appearance of elements from the "main" block.
+
     newTaskButton.addEventListener('click', () => {
         if (newTaskButtonCondition) {
-            plusIcon.style.rotate = '45deg';
+            plusIcon.classList.remove('rotate-0');
+            plusIcon.classList.add('rotate-45');
             taskButtonText.textContent = 'Cancel';
-            topDots.style.height = '40px';
-            topDots.style.opacity = '1';
-            taskValue.style.opacity = '1';
+            topDots.classList.remove('h-0', 'opacity-0');
+            topDots.classList.add('h-[24px]', 'opacity-100', 'my-[13px]');
+            taskValue.classList.remove('opacity-0');
+            taskValue.classList.add('opacity-100');
             taskValue.disabled = false;
             taskValue.value = '';
             newTaskButtonCondition = false;
         } else {
-            plusIcon.style.rotate = '0deg';
+            plusIcon.classList.remove('rotate-45');
+            plusIcon.classList.add('rotate-0');
             taskButtonText.textContent = 'Add New Task';
-            topDots.style.height = '0px';
-            topDots.style.opacity = '0';
-            taskValue.style.opacity = '0';
+            topDots.classList.remove('h-[24px]', 'opacity-100', 'my-[13px]');
+            topDots.classList.add('h-0', 'opacity-0');
+            taskValue.classList.remove('opacity-100');
+            taskValue.classList.add('opacity-0');
             taskValue.disabled = true;
-            bottomDots.style.height = '0px';
-            bottomDots.style.opacity = '0';
-            confirmButton.style.opacity = '0';
+            bottomDots.classList.remove('h-[24px]', 'opacity-100', 'my-[13px]');
+            bottomDots.classList.add('h-0', 'opacity-0');
+            confirmButton.classList.remove('opacity-100');
+            confirmButton.classList.add('opacity-0');
             confirmButton.disabled = true;
             newTaskButtonCondition = true;
         }
@@ -119,23 +125,34 @@ if (localStorage.length === 0) {
 
     taskValue.addEventListener('input', (event) => {
         if (event.target.value[0] !== ' ' && event.target.value[0] !== '\n' && event.target.value.length !== 0) {
-            bottomDots.style.height = '40px';
-            bottomDots.style.opacity = '1';
-            confirmButton.style.opacity = '1';
+            bottomDots.classList.remove('h-0', 'opacity-0');
+            bottomDots.classList.add('h-[24px]', 'opacity-100', 'my-[13px]');
+            confirmButton.classList.remove('opacity-0');
+            confirmButton.classList.add('opacity-100');
             confirmButton.disabled = false;
         } else {
-            bottomDots.style.height = '0px';
-            bottomDots.style.opacity = '0';
-            confirmButton.style.opacity = '0';
+            bottomDots.classList.remove('h-[24px]', 'opacity-100', 'my-[13px]');
+            bottomDots.classList.add('h-0', 'opacity-0');
+            confirmButton.classList.remove('opacity-100');
+            confirmButton.classList.add('opacity-0');
             confirmButton.disabled = true;
         }
     })
 
-    // confirmButton.addEventListener('click', () => {
-    //
-    // })
+    confirmButton.addEventListener('click', () => {
+        //TODO • To implement the function and animation (assigning/removing beforehand to each element (task) the corresponding classes which should create the effect of beautiful appearance) of adding and appearance of a new task.
+    })
 
     //! ()
 }
 
 //! () Animation of the appearance of the main content
+
+
+//TODO • Below is the function to remove tasks from the DOM (embed later).
+
+// document.querySelector('.taskList').addEventListener('click', (event) => {
+//     if (event.target.classList.contains('basketIcon')) {
+//         event.target.parentNode.parentNode.remove();
+//     }
+// })
