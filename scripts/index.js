@@ -15,6 +15,8 @@ let bottomDots = document.querySelector('.bottomDots');
 let taskValue = document.querySelector('.taskValue');
 let newTaskButtonCondition = true;
 
+let taskList = document.querySelector('.taskList');
+
 function auto_grow(element) {
     element.style.height = "5px";
     element.style.height = (element.scrollHeight)+"px";
@@ -140,6 +142,20 @@ if (localStorage.length === 0) {
     })
 
     confirmButton.addEventListener('click', () => {
+        //TODO • Link to some kind of data structure.
+
+        taskList.appendChild(document.createElement('div'));
+        taskList.lastElementChild.classList.add('task', 'flex', 'w-full', 'mb-[22px]');
+        taskList.lastElementChild.innerHTML = `
+            <div class="flex justify-between items-center max-w-[68px] w-full h-[25px] mr-[21px]">
+                <img class="basketIcon w-[22px] h-[23px] cursor-pointer" src="img/basket.svg" alt="basket">
+                <div class="w-[25px] h-[25px] border-2 border-[#1E9CEA] rounded-[5px] cursor-pointer">
+                    <!-- img tick -->
+                </div>
+            </div>
+            <span class="">${taskValue.value}</span>
+        `;
+
         //TODO • To implement the function and animation (assigning/removing beforehand to each element (task) the corresponding classes which should create the effect of beautiful appearance) of adding and appearance of a new task.
     })
 
