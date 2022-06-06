@@ -8,14 +8,16 @@ let letsStartInputButton = document.querySelector('.letsStartInputButton');
 
 let newTaskButton = document.querySelector('.newTaskButton');
 let confirmButton = document.querySelector('.confirmButton');
-let plusIcon = document.querySelector('.newTaskButton .plusCircle img')
-let taskButtonText = document.querySelector('.newTaskButton span')
+let plusIcon = document.querySelector('.newTaskButton .plusCircle img');
+let taskButtonText = document.querySelector('.newTaskButton span');
 let topDots = document.querySelector('.topDots');
 let bottomDots = document.querySelector('.bottomDots');
 let taskValue = document.querySelector('.taskValue');
 let newTaskButtonCondition = true;
 
-let taskList = document.querySelector('.taskList');
+let taskListParent = document.querySelector('.taskList');
+let temporaryArray;
+
 
 function auto_grow(element) {
     element.style.height = "5px";
@@ -87,13 +89,15 @@ if (localStorage.length === 0) {
 
     letsStartInputButton.addEventListener('click', () => {
         localStorage.setItem('name', letsStartInputName.value);
-        //! ()
+        localStorage.setItem('taskList', '[]');
+
+        //TODO • Consider using "location.reload();".
     })
 } else {
     document.title = `TaskDo | ${localStorage.getItem('name')}`;
     document.querySelector('.hiName span').textContent = localStorage.getItem('name');
 
-    //TODO • Animating the appearance of elements from the "main" block.
+    //TODO • Implement animation of the appearance of elements (header, main).
 
     newTaskButton.addEventListener('click', () => {
         if (newTaskButtonCondition) {
@@ -142,33 +146,45 @@ if (localStorage.length === 0) {
     })
 
     confirmButton.addEventListener('click', () => {
-        //TODO • Link to some kind of data structure.
+        bottomDots.classList.remove('h-[24px]', 'opacity-100', 'my-[13px]');
+        bottomDots.classList.add('h-0', 'opacity-0');
+        confirmButton.classList.remove('opacity-100');
+        confirmButton.classList.add('opacity-0');
+        confirmButton.disabled = true;
 
-        taskList.appendChild(document.createElement('div'));
-        taskList.lastElementChild.classList.add('task', 'flex', 'w-full', 'mb-[22px]');
-        taskList.lastElementChild.innerHTML = `
+        taskListParent.appendChild(document.createElement('div'));
+        taskListParent.lastElementChild.classList.add('task', 'flex', 'w-full', 'mb-[22px]');
+        taskListParent.lastElementChild.innerHTML = `
             <div class="flex justify-between items-center max-w-[68px] w-full h-[25px] mr-[21px]">
                 <img class="basketIcon w-[22px] h-[23px] cursor-pointer" src="img/basket.svg" alt="basket">
-                <div class="w-[25px] h-[25px] border-2 border-[#1E9CEA] rounded-[5px] cursor-pointer">
-                    <!-- img tick -->
-                </div>
+                <div class="checkbox w-[25px] h-[25px] border-2 border-[#1E9CEA] rounded-[5px] cursor-pointer"></div>
             </div>
             <span class="">${taskValue.value}</span>
         `;
-
-        //TODO • To implement the function and animation (assigning/removing beforehand to each element (task) the corresponding classes which should create the effect of beautiful appearance) of adding and appearance of a new task.
+        temporaryArray = JSON.parse(localStorage.getItem('taskList'));
+        temporaryArray.push(
+            {
+                data: taskValue.value,
+                completed: false
+            }
+        );
+        localStorage.setItem('taskList', JSON.stringify(temporaryArray));
+        temporaryArray = undefined;
+        taskValue.value = '';
+        document.querySelector('.amountOfTasks').textContent = String(taskListParent.children.length);
     })
 
-    //! ()
+    document.querySelector('.taskList').addEventListener('click', (event) => {
+        if (event.target.classList.contains('basketIcon')) {
+            temporaryArray = JSON.parse(localStorage.getItem('taskList'));
+            temporaryArray.splice([...taskListParent.children].indexOf(event.target.parentNode.parentNode), 1);
+            localStorage.setItem('taskList', JSON.stringify(temporaryArray));
+            temporaryArray = undefined;
+            event.target.parentNode.parentNode.remove();
+        }
+        if (event.target.classList.contains('checkbox')) {
+            //TODO • Implement (crossing out and changing the icon) of the completed task. To do with "basketIcon" as an example.
+        }
+    })
+
 }
-
-//! () Animation of the appearance of the main content
-
-
-//TODO • Below is the function to remove tasks from the DOM (embed later).
-
-// document.querySelector('.taskList').addEventListener('click', (event) => {
-//     if (event.target.classList.contains('basketIcon')) {
-//         event.target.parentNode.parentNode.remove();
-//     }
-// })
