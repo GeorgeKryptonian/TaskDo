@@ -15,13 +15,30 @@ let bottomDots = document.querySelector('.bottomDots');
 let taskValue = document.querySelector('.taskValue');
 let newTaskButtonCondition = true;
 
+let header = document.querySelector('header');
+let main = document.querySelector('main');
 let taskListParent = document.querySelector('.taskList');
 let temporaryArray;
+let temporaryObjIndex;
 
 
 function auto_grow(element) {
     element.style.height = "5px";
     element.style.height = (element.scrollHeight)+"px";
+}
+
+function generateTask(spanData, classParameters) {
+    taskListParent.appendChild(document.createElement('div'));
+    taskListParent.lastElementChild.classList.add('task', 'flex', 'w-full', 'mb-[22px]');
+    taskListParent.lastElementChild.innerHTML = `
+        <div class="flex justify-between items-center max-w-[68px] w-full h-[25px] mr-[21px] select-none">
+            <img class="basketIcon w-[22px] h-[23px] cursor-pointer" src="img/basket.svg" alt="basket">
+            <div class="checkbox flex items-center justify-center w-[25px] h-[25px] border-2 border-[#1E9CEA] rounded-[5px] cursor-pointer transition-[background-color]${classParameters.checkboxBgColor}">
+                <img class="pointer-events-none" src="img/checkMark.svg" alt="checkMark">
+            </div>
+        </div>
+        <span class="${classParameters.spanClass}">${spanData}</span>
+    `;
 }
 
 if (localStorage.length === 0) {
@@ -91,13 +108,34 @@ if (localStorage.length === 0) {
         localStorage.setItem('name', letsStartInputName.value);
         localStorage.setItem('taskList', '[]');
 
-        //TODO • Consider using "location.reload();".
+        location.reload();
     })
 } else {
     document.title = `TaskDo | ${localStorage.getItem('name')}`;
     document.querySelector('.hiName span').textContent = localStorage.getItem('name');
 
-    //TODO • Implement animation of the appearance of elements (header, main).
+    header.classList.remove('hidden');
+    main.classList.remove('hidden');
+
+    //TODO • Implement animation of the appearance of elements (header, main and taskList).
+
+    JSON.parse(localStorage.getItem('taskList')).forEach((obj) => {
+        generateTask(
+            obj.data,
+            (() => (obj.completed === true) ? (
+                {
+                    checkboxBgColor: ' bg-[#1E9CEA]',
+                    spanClass: 'line-through'
+                }
+            ) : (
+                {
+                    checkboxBgColor: '',
+                    spanClass: ''
+                }
+            )
+            )()
+        );
+    })
 
     newTaskButton.addEventListener('click', () => {
         if (newTaskButtonCondition) {
@@ -152,15 +190,7 @@ if (localStorage.length === 0) {
         confirmButton.classList.add('opacity-0');
         confirmButton.disabled = true;
 
-        taskListParent.appendChild(document.createElement('div'));
-        taskListParent.lastElementChild.classList.add('task', 'flex', 'w-full', 'mb-[22px]');
-        taskListParent.lastElementChild.innerHTML = `
-            <div class="flex justify-between items-center max-w-[68px] w-full h-[25px] mr-[21px]">
-                <img class="basketIcon w-[22px] h-[23px] cursor-pointer" src="img/basket.svg" alt="basket">
-                <div class="checkbox w-[25px] h-[25px] border-2 border-[#1E9CEA] rounded-[5px] cursor-pointer"></div>
-            </div>
-            <span class="">${taskValue.value}</span>
-        `;
+        generateTask(taskValue.value);
         temporaryArray = JSON.parse(localStorage.getItem('taskList'));
         temporaryArray.push(
             {
@@ -175,16 +205,27 @@ if (localStorage.length === 0) {
     })
 
     document.querySelector('.taskList').addEventListener('click', (event) => {
-        if (event.target.classList.contains('basketIcon')) {
-            temporaryArray = JSON.parse(localStorage.getItem('taskList'));
-            temporaryArray.splice([...taskListParent.children].indexOf(event.target.parentNode.parentNode), 1);
+        temporaryArray = JSON.parse(localStorage.getItem('taskList'));
+        temporaryObjIndex = [...taskListParent.children].indexOf(event.target.parentNode.parentNode);
+        if (event.target.classList.contains('basketIcon')) { //? remove task
+            temporaryArray.splice(temporaryObjIndex, 1);
             localStorage.setItem('taskList', JSON.stringify(temporaryArray));
-            temporaryArray = undefined;
             event.target.parentNode.parentNode.remove();
         }
-        if (event.target.classList.contains('checkbox')) {
-            //TODO • Implement (crossing out and changing the icon) of the completed task. To do with "basketIcon" as an example.
+        if (event.target.classList.contains('checkbox')) { //? completed task
+            if (temporaryArray[temporaryObjIndex].completed === false) {
+                temporaryArray[temporaryObjIndex].completed = true;
+                event.target.parentNode.nextElementSibling.classList.add('line-through');
+                event.target.classList.add('bg-[#1E9CEA]');
+            } else {
+                temporaryArray[temporaryObjIndex].completed = false;
+                event.target.parentNode.nextElementSibling.classList.remove('line-through');
+                event.target.classList.remove('bg-[#1E9CEA]');
+            }
+            localStorage.setItem('taskList', JSON.stringify(temporaryArray));
         }
+        temporaryArray = undefined;
+        temporaryObjIndex = undefined;
     })
 
 }
