@@ -22,11 +22,6 @@ let temporaryArray;
 let temporaryObjIndex;
 
 
-function auto_grow(element) {
-    element.style.height = "5px";
-    element.style.height = (element.scrollHeight)+"px";
-}
-
 function generateTask(spanData, classParameters) {
     taskListParent.appendChild(document.createElement('div'));
     taskListParent.lastElementChild.classList.add('task', 'flex', 'w-full', 'mb-[22px]');
@@ -52,7 +47,7 @@ if (localStorage.length === 0) {
         opacity: '1',
         easing: 'easeInOutQuad',
     });
-
+z
     letsStartIntroButton.addEventListener('click', () => {
 
         //TODO • Replace with Promise (code below).
@@ -113,6 +108,7 @@ if (localStorage.length === 0) {
 } else {
     document.title = `TaskDo | ${localStorage.getItem('name')}`;
     document.querySelector('.hiName span').textContent = localStorage.getItem('name');
+    document.querySelector('.amountOfTasks').textContent = String(taskListParent.children.length);
 
     header.classList.remove('hidden');
     main.classList.remove('hidden');
@@ -148,6 +144,7 @@ if (localStorage.length === 0) {
             taskValue.classList.add('opacity-100');
             taskValue.disabled = false;
             taskValue.value = '';
+            autosize.destroy(taskValue);
             newTaskButtonCondition = false;
         } else {
             plusIcon.classList.remove('rotate-45');
@@ -183,14 +180,23 @@ if (localStorage.length === 0) {
         }
     })
 
+    taskValue.addEventListener('input', () => autosize(taskValue));
+
     confirmButton.addEventListener('click', () => {
+
         bottomDots.classList.remove('h-[24px]', 'opacity-100', 'my-[13px]');
         bottomDots.classList.add('h-0', 'opacity-0');
         confirmButton.classList.remove('opacity-100');
         confirmButton.classList.add('opacity-0');
         confirmButton.disabled = true;
 
-        generateTask(taskValue.value);
+        generateTask(
+            taskValue.value,
+            {
+                checkboxBgColor: '',
+                spanClass: ''
+            }
+        );
         temporaryArray = JSON.parse(localStorage.getItem('taskList'));
         temporaryArray.push(
             {
@@ -201,6 +207,7 @@ if (localStorage.length === 0) {
         localStorage.setItem('taskList', JSON.stringify(temporaryArray));
         temporaryArray = undefined;
         taskValue.value = '';
+        autosize.destroy(taskValue);
         document.querySelector('.amountOfTasks').textContent = String(taskListParent.children.length);
     })
 
@@ -227,5 +234,4 @@ if (localStorage.length === 0) {
         temporaryArray = undefined;
         temporaryObjIndex = undefined;
     })
-
 }
