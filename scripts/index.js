@@ -16,6 +16,13 @@ let taskValue = document.querySelector('.taskValue');
 let newTaskButtonCondition = true;
 
 let header = document.querySelector('header');
+let menuBurger = document.querySelector('.menuBurger');
+let renameBlock = document.querySelector('.renameBlock');
+let renameImg = document.querySelector('.renameBlock img');
+let renameDots = document.querySelector('.renameDots');
+let deleteAllCompletedBlock = document.querySelector('.deleteAllCompletedBlock');
+let deleteAllCompletedImg = document.querySelector('.deleteAllCompletedBlock img');
+let deleteAllCompletedDots = document.querySelector('.deleteAllCompletedDots');
 let main = document.querySelector('main');
 let taskListParent = document.querySelector('.taskList');
 let temporaryArray;
@@ -26,7 +33,7 @@ function generateTask(spanData, classParameters) {
     taskListParent.appendChild(document.createElement('div'));
     taskListParent.lastElementChild.classList.add('task', 'flex', 'w-full', 'mb-[22px]');
     taskListParent.lastElementChild.innerHTML = `
-        <div class="flex justify-between items-center max-w-[68px] w-full h-[25px] mr-[21px] select-none">
+        <div class="flex justify-between items-center shrink-0 w-[68px] h-[25px] mr-[21px] select-none">
             <img class="basketIcon w-[22px] h-[23px] cursor-pointer" src="img/basket.svg" alt="basket">
             <div class="checkbox flex items-center justify-center w-[25px] h-[25px] border-2 border-[#1E9CEA] rounded-[5px] cursor-pointer transition-[background-color]${classParameters.checkboxBgColor}">
                 <img class="pointer-events-none" src="img/checkMark.svg" alt="checkMark">
@@ -47,7 +54,7 @@ if (localStorage.length === 0) {
         opacity: '1',
         easing: 'easeInOutQuad',
     });
-z
+
     letsStartIntroButton.addEventListener('click', () => {
 
         //TODO • Replace with Promise (code below).
@@ -101,14 +108,13 @@ z
 
     letsStartInputButton.addEventListener('click', () => {
         localStorage.setItem('name', letsStartInputName.value);
-        localStorage.setItem('taskList', '[]');
+        localStorage.setItem('taskList', '[]'); //!
 
         location.reload();
     })
 } else {
     document.title = `TaskDo | ${localStorage.getItem('name')}`;
     document.querySelector('.hiName span').textContent = localStorage.getItem('name');
-    document.querySelector('.amountOfTasks').textContent = String(taskListParent.children.length);
 
     header.classList.remove('hidden');
     main.classList.remove('hidden');
@@ -131,6 +137,45 @@ z
             )
             )()
         );
+    })
+
+    document.querySelector('.amountOfTasks').textContent = String(taskListParent.children.length);
+
+    menuBurger.addEventListener('click', () => {
+        if (!menuBurger.classList.contains('burgerOpen')) {
+	    	menuBurger.classList.remove('lg:bg-[url(\'img/menuIconBurger.svg\')]');
+    		menuBurger.classList.add('burgerOpen', 'lg:bg-[url(\'img/menuIconX.svg\')]');
+
+            renameBlock.classList.remove('left-[-34px]', 'opacity-0');
+            renameBlock.classList.add('left-[-84px]', 'opacity-100');
+            renameImg.classList.remove('cursor-default');
+            renameImg.classList.add('cursor-pointer');
+            renameDots.classList.remove('w-0', 'mx-0');
+            renameDots.classList.add('w-[24px]', 'mx-[13px]');
+
+            deleteAllCompletedBlock.classList.remove('bottom-[-34px]', 'opacity-0');
+            deleteAllCompletedBlock.classList.add('bottom-[-84px]', 'opacity-100');
+            deleteAllCompletedImg.classList.remove('cursor-default');
+            deleteAllCompletedImg.classList.add('cursor-pointer');
+            deleteAllCompletedDots.classList.remove('h-0', 'my-0');
+            deleteAllCompletedDots.classList.add('h-[24px]', 'my-[13px]');
+        } else {
+            menuBurger.classList.remove('burgerOpen');
+
+            renameBlock.classList.remove('left-[-84px]', 'opacity-100');
+            renameBlock.classList.add('left-[-34px]', 'opacity-0');
+            renameImg.classList.remove('cursor-pointer');
+            renameImg.classList.add('cursor-default');
+            renameDots.classList.remove('w-[24px]', 'mx-[13px]');
+            renameDots.classList.add('w-0', 'mx-0');
+
+            deleteAllCompletedBlock.classList.remove('bottom-[-84px]', 'opacity-100');
+            deleteAllCompletedBlock.classList.add('bottom-[-34px]', 'opacity-0');
+            deleteAllCompletedImg.classList.remove('cursor-pointer');
+            deleteAllCompletedImg.classList.add('cursor-default');
+            deleteAllCompletedDots.classList.remove('h-[24px]', 'my-[13px]');
+            deleteAllCompletedDots.classList.add('h-0', 'my-0');
+        }
     })
 
     newTaskButton.addEventListener('click', () => {
@@ -218,6 +263,7 @@ z
             temporaryArray.splice(temporaryObjIndex, 1);
             localStorage.setItem('taskList', JSON.stringify(temporaryArray));
             event.target.parentNode.parentNode.remove();
+            document.querySelector('.amountOfTasks').textContent = String(taskListParent.children.length);
         }
         if (event.target.classList.contains('checkbox')) { //? completed task
             if (temporaryArray[temporaryObjIndex].completed === false) {
@@ -235,3 +281,6 @@ z
         temporaryObjIndex = undefined;
     })
 }
+
+
+//TODO • Реализовать две функции которые будут принимать 1 значение(topDots/bottomDots). Это сократит код анимирования точек в два раза.
