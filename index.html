@@ -8,14 +8,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="scripts/anime.min.js" defer></script>
-    <script src="scripts/autosize.min.js" defer></script>
+    <script src="scripts/anime.min.js"></script>
+    <script src="scripts/autosize.min.js"></script>
     <script src="scripts/index.js" defer></script>
     <title>...</title>
 </head>
 <body class="font-['Inter'] leading-[0.9]">
 
-<div class="page h-screen flex flex-col items-center break-all">
+<div class="page h-screen flex flex-col items-center">
     <div class="letsStartIntroBlock text-center font-bold h-max opacity-0 hidden">
         <h1 class="text-[72px] text-[#5E5E5E]">TaskDo</h1>
         <p class="text-[24px] text-[#5E5E5E] mb-[30px]">Manage You Task Checklist Easily</p>
@@ -32,25 +32,26 @@
         <div class="greeting flex flex-col lg:flex-row items-center">
             <img class="lg:w-[74px] lg:h-[74px] mb-[10px] lg:mb-0 lg:mr-[10px]" src="img/person.png" alt="person">
             <div class="hiName_tasksPending flex flex-col text-[24px] text-center lg:text-left">
-                <span class="hiName font-bold text-[#5E5E5E] mb-[5px]">Hi <span class=""></span> 👋🏽</span>
+                <span class="hiName font-bold text-[#5E5E5E] mb-[5px]">Hi <span class="">...</span> 👋🏽</span>
                 <span class="tasksPending text-[#EF6161]"><span class="amountOfTasks">...</span> tasks pending</span>
             </div>
         </div>
 
-        <div class="menuBurger relative flex justify-between w-full mb-[15px] lg:w-[34px] lg:h-[34px] lg:mb-0 lg:bg-[url('img/menuIconBurger.svg')] bg-no-repeat bg-contain lg:cursor-pointer"> <!-- lg:bg-[url('img/menuIconX.svg')] -->
-            <div class="renameBlock lg:absolute left-[-34px] opacity-0 transition-[left,_opacity] flex items-center cursor-default"> <!-- left-[-84px] opacity-100 -->
-                <img class="w-[34px] h-[34px] cursor-default" src="img/rename.svg" alt="rename"> <!-- cursor-pointer -->
-                <div class="renameDots flex justify-between transition-[width,_margin] w-0 mx-0"> <!-- w-[24px] mx-[13px] -->
+        <div class="menuBurgerBlock relative flex justify-between w-full mb-[15px] lg:w-[34px] lg:h-[34px] lg:mb-0 lg:cursor-pointer">
+            <img class="burgerIcon hidden lg:block" src="img/menuIconBurger.svg" alt="burgerIcon">
+            <div class="renameBlock lg:absolute left-[-34px] lg:opacity-0 transition-[left,_opacity] flex items-center cursor-default">
+                <img class="w-[34px] h-[34px] cursor-pointer lg:cursor-default" src="img/rename.svg" alt="rename">
+                <div class="renameDots hidden lg:flex justify-between transition-[width,_margin] w-0 mx-0">
                     <div class="h-[8px] w-[8px] rounded-full bg-[#B47AEA]"></div>
                     <div class="h-[8px] w-[8px] rounded-full bg-[#B47AEA]"></div>
                 </div>
             </div>
-            <div class="deleteAllCompletedBlock lg:absolute bottom-[-34px] opacity-0 transition-[bottom,_opacity] flex flex-col items-center cursor-default"> <!-- bottom-[-84px] opacity-100 -->
-                <div class="deleteAllCompletedDots flex flex-col justify-between transition-[height,_margin] h-0 my-0"> <!-- h-[24px] my-[13px] -->
+            <div class="deleteAllCompletedBlock lg:absolute bottom-[-34px] lg:opacity-0 transition-[bottom,_opacity] flex flex-col items-center cursor-default">
+                <div class="deleteAllCompletedDots hidden lg:flex flex-col justify-between transition-[height,_margin] h-0 my-0">
                     <div class="h-[8px] w-[8px] rounded-full bg-[#B47AEA]"></div>
                     <div class="h-[8px] w-[8px] rounded-full bg-[#B47AEA]"></div>
                 </div>
-                <img class="w-[34px] h-[34px] cursor-default" src="img/deleteAllCompleted.svg" alt="deleteAllCompleted"> <!-- cursor-pointer -->
+                <img class="w-[34px] h-[34px] cursor-pointer lg:cursor-default" src="img/deleteAllCompleted.svg" alt="deleteAllCompleted">
             </div>
         </div>
     </header>
@@ -86,9 +87,7 @@
 
 
         <div class="taskList flex flex-col text-[22px] leading-[1.2] break-all">
-
             <!-- Tasks... -->
-
         </div>
     </main>
 </div>
@@ -98,3 +97,5 @@
 <!--TODO • Deal with "disabled" when loading the page for some elements. -->
 
 <!--TODO • Solve the problem (if possible) with the size of hidden elements inside the "addNewTaskBlock". -->
+
+<!--TODO • Minimize tailwind classes. -->
