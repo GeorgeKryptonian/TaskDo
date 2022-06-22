@@ -8,12 +8,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="scripts/anime.min.js"></script>
-    <script src="scripts/autosize.min.js"></script>
+    <script src="libs/anime.min.js" defer></script>
+    <script src="libs/autosize.min.js" defer></script>
     <script src="scripts/index.js" defer></script>
     <title>...</title>
 </head>
-<body class="font-['Inter'] leading-[0.9]">
+<body class="font-['Inter'] leading-[0.9]"
 
 <div class="page h-screen flex flex-col items-center">
     <div class="letsStartIntroBlock text-center font-bold h-max opacity-0 hidden">
@@ -26,9 +26,7 @@
         <button class="letsStartInputButton flex justify-center items-center h-[3px] bg-green-500 rounded-[15px] w-0 text-[0px] text-white font-bold transition-[box-shadow] focus:ring-4 focus:ring-green-200 hover:ring-4 hover:ring-green-100">Save</button>
     </div>
 
-
-    <header class="w-full flex flex-col-reverse lg:flex-row items-center justify-center sm:justify-between mt-[15px] mb-[84px] px-[25px] sm:px-[50px] hidden">
-
+    <header class="hm w-full flex flex-col-reverse lg:flex-row items-center justify-center sm:justify-between mt-[15px] mb-[84px] px-[25px] sm:px-[50px] hidden opacity-0">
         <div class="greeting flex flex-col lg:flex-row items-center">
             <img class="lg:w-[74px] lg:h-[74px] mb-[10px] lg:mb-0 lg:mr-[10px]" src="img/person.png" alt="person">
             <div class="hiName_tasksPending flex flex-col text-[24px] text-center lg:text-left">
@@ -36,27 +34,25 @@
                 <span class="tasksPending text-[#EF6161]"><span class="amountOfTasks">...</span> tasks pending</span>
             </div>
         </div>
-
         <div class="menuBurgerBlock relative flex justify-between w-full mb-[15px] lg:w-[34px] lg:h-[34px] lg:mb-0 lg:cursor-pointer">
             <img class="burgerIcon hidden lg:block" src="img/menuIconBurger.svg" alt="burgerIcon">
             <div class="renameBlock lg:absolute left-[-34px] lg:opacity-0 transition-[left,_opacity] flex items-center cursor-default">
-                <img class="w-[34px] h-[34px] cursor-pointer lg:cursor-default" src="img/rename.svg" alt="rename">
-                <div class="renameDots hidden lg:flex justify-between transition-[width,_margin] w-0 mx-0">
+                <img class="w-[34px] h-[34px] cursor-pointer lg:cursor-default transition-[opacity] hover:opacity-75" src="img/rename.svg" alt="rename">
+                <div class="renameDots hidden lg:flex justify-between transition-[width,_margin] w-0">
                     <div class="h-[8px] w-[8px] rounded-full bg-[#B47AEA]"></div>
                     <div class="h-[8px] w-[8px] rounded-full bg-[#B47AEA]"></div>
                 </div>
             </div>
             <div class="deleteAllCompletedBlock lg:absolute bottom-[-34px] lg:opacity-0 transition-[bottom,_opacity] flex flex-col items-center cursor-default">
-                <div class="deleteAllCompletedDots hidden lg:flex flex-col justify-between transition-[height,_margin] h-0 my-0">
+                <div class="deleteAllCompletedDots hidden lg:flex flex-col justify-between transition-[height,_margin] h-0">
                     <div class="h-[8px] w-[8px] rounded-full bg-[#B47AEA]"></div>
                     <div class="h-[8px] w-[8px] rounded-full bg-[#B47AEA]"></div>
                 </div>
-                <img class="w-[34px] h-[34px] cursor-pointer lg:cursor-default" src="img/deleteAllCompleted.svg" alt="deleteAllCompleted">
+                <img class="w-[34px] h-[34px] cursor-pointer lg:cursor-default transition-[opacity] hover:opacity-75" src="img/deleteAllCompleted.svg" alt="deleteAllCompleted">
             </div>
         </div>
     </header>
-
-    <main class="w-full px-[25px] sm:px-[50px] lg:px-[110px] xl:px-[220px] text-[24px] hidden">
+    <main class="hm w-full px-[25px] sm:px-[50px] lg:px-[110px] xl:px-[220px] text-[24px] hidden opacity-0">
         <div class="addingNewTaskBlock mb-[50px]">
             <button class="newTaskButton flex justify-between items-center font-bold text-[#B47AEA]">
                 <div class="plusCircle flex justify-center items-center w-[30px] h-[30px] mr-[12px] bg-[#B47AEA] text-white rounded-full">
@@ -64,7 +60,6 @@
                 </div>
                 <span>Add New Task</span>
             </button>
-
             <div class="topDots flex flex-col justify-between transition-[height,_opacity,_margin] ml-[11px] h-0 opacity-0">
                 <div class="h-[8px] w-[8px] rounded-full bg-[#B47AEA]"></div>
                 <div class="h-[8px] w-[8px] rounded-full bg-[#B47AEA]"></div>
@@ -76,7 +71,6 @@
                 <div class="h-[8px] w-[8px] rounded-full bg-[#B47AEA]"></div>
                 <div class="h-[8px] w-[8px] rounded-full bg-[#B47AEA]"></div>
             </div>
-
             <button class="confirmButton flex justify-between items-center font-bold transition-[opacity] text-[#B47AEA] opacity-0" disabled>
                 <div class="plusCircle flex justify-center items-center w-[30px] h-[30px] mr-[12px] bg-[#B47AEA] text-white rounded-full">
                     <img src="img/plusIcon.svg" alt="plusIcon">
@@ -84,8 +78,6 @@
                 <span>Confirm</span>
             </button>
         </div>
-
-
         <div class="taskList flex flex-col text-[22px] leading-[1.2] break-all">
             <!-- Tasks... -->
         </div>
@@ -94,7 +86,6 @@
 </body>
 </html>
 
-<!--TODO • Deal with "disabled" when loading the page for some elements. -->
 
 <!--TODO • Solve the problem (if possible) with the size of hidden elements inside the "addNewTaskBlock". -->
 
