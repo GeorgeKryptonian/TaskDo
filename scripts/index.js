@@ -3,28 +3,34 @@ let letsStartIntroButton = document.querySelector('.letsStartIntroButton');
 
 let letsStartInputBlock = document.querySelector('.letsStartInputBlock');
 let letsStartInputName = document.querySelector('.letsStartInputName');
+let inputNameEventClasses = ['focus:outline-green-500', 'focus:text-green-500', 'focus:ring-green-100', 'outline-green-500', 'text-green-500'];
 let letsStartInputButton = document.querySelector('.letsStartInputButton');
 
 
-let newTaskButton = document.querySelector('.newTaskButton');
-let confirmButton = document.querySelector('.confirmButton');
-let plusIcon = document.querySelector('.newTaskButton .plusCircle img');
-let taskButtonText = document.querySelector('.newTaskButton span');
-let topDots = document.querySelector('.topDots');
-let bottomDots = document.querySelector('.bottomDots');
-let taskValue = document.querySelector('.taskValue');
-let newTaskButtonCondition = true;
-
 let header = document.querySelector('header');
+let amountOfTasks = document.querySelector('.amountOfTasks');
 let menuBurgerBlock = document.querySelector('.menuBurgerBlock');
 let burgerIcon = document.querySelector('.burgerIcon');
+
 let renameBlock = document.querySelector('.renameBlock');
 let renameImg = document.querySelector('.renameBlock img');
 let renameDots = document.querySelector('.renameDots');
+
 let deleteAllCompletedBlock = document.querySelector('.deleteAllCompletedBlock');
 let deleteAllCompletedImg = document.querySelector('.deleteAllCompletedBlock img');
 let deleteAllCompletedDots = document.querySelector('.deleteAllCompletedDots');
+
+
 let main = document.querySelector('main');
+let newTaskButton = document.querySelector('.newTaskButton');
+let newTaskButtonCondition = true;
+let plusIcon = document.querySelector('.newTaskButton .plusCircle img');
+let taskButtonText = document.querySelector('.newTaskButton span');
+let topDots = document.querySelector('.topDots');
+let taskValue = document.querySelector('.taskValue');
+let bottomDots = document.querySelector('.bottomDots');
+let confirmButton = document.querySelector('.confirmButton');
+
 let taskListParent = document.querySelector('.taskList');
 let temporaryArray;
 let temporaryObjIndex;
@@ -72,6 +78,7 @@ function displayInputBlock() {
 }
 
 
+
 if (localStorage.length === 0 || localStorage.getItem('name') === null) {
     document.title = `TaskDo | ${(localStorage.length === 0) ? 'Lets Start' : 'Rename'}`;
     if (localStorage.length === 0) {
@@ -80,19 +87,15 @@ if (localStorage.length === 0 || localStorage.getItem('name') === null) {
         centeringIntroBlock();
 
         letsStartIntroButton.addEventListener('click', () => {
-
-            //TODO • Replace with Promise (code below and similar).
-
             anime({
                 targets: '.letsStartIntroBlock',
                 translateY: window.innerHeight - letsStartIntroBlock.clientHeight,
                 opacity: '0',
                 easing: 'easeInOutQuad',
-            });
-            setTimeout(() => {
+            }).finished.then(() => {
                 letsStartIntroBlock.classList.add('hidden');
                 displayInputBlock();
-            }, 1000);
+            });
         })
     } else displayInputBlock();
 
@@ -109,8 +112,7 @@ if (localStorage.length === 0 || localStorage.getItem('name') === null) {
                 duration: 1500,
                 easing: 'easeOutElastic',
             })
-            letsStartInputName.classList.remove('outline-gray-300', 'text-gray-300');
-            letsStartInputName.classList.add('outline-green-500', 'text-green-500');
+            letsStartInputName.classList.add(...inputNameEventClasses);
         } else {
             anime({
                 targets: letsStartInputButton,
@@ -122,8 +124,7 @@ if (localStorage.length === 0 || localStorage.getItem('name') === null) {
                 duration: 1500,
                 easing: 'easeOutElastic',
             })
-            letsStartInputName.classList.remove('outline-green-500', 'text-green-500');
-            letsStartInputName.classList.add('outline-gray-300', 'text-gray-300');
+            letsStartInputName.classList.remove(...inputNameEventClasses);
         }
     })
 
@@ -146,8 +147,6 @@ if (localStorage.length === 0 || localStorage.getItem('name') === null) {
         easing: 'easeInOutQuad',
     })
 
-    //TODO • Implement animation of the appearance of elements (header, main and taskList).
-
     getTaskList().forEach((obj) => {
         generateTask(
             obj.data,
@@ -166,39 +165,31 @@ if (localStorage.length === 0 || localStorage.getItem('name') === null) {
         );
     })
 
-    document.querySelector('.amountOfTasks').textContent = String(taskListParent.children.length);
+    amountOfTasks.textContent = String(taskListParent.children.length);
 
     burgerIcon.addEventListener('click', () => {
         if (!menuBurgerBlock.classList.contains('burgerOpen')) {
             menuBurgerBlock.classList.add('burgerOpen');
             burgerIcon.setAttribute('src', 'img/menuIconX.svg');
 
-            renameBlock.classList.remove('left-[-34px]', 'lg:opacity-0');
-            renameBlock.classList.add('left-[-84px]');
+            renameBlock.classList.add('left-[-84px]', 'lg:opacity-100');
             renameImg.classList.remove('lg:cursor-default');
-            renameDots.classList.remove('w-0');
             renameDots.classList.add('w-[24px]', 'mx-[13px]');
 
-            deleteAllCompletedBlock.classList.remove('bottom-[-34px]', 'lg:opacity-0');
-            deleteAllCompletedBlock.classList.add('bottom-[-84px]');
+            deleteAllCompletedBlock.classList.add('bottom-[-84px]', 'lg:opacity-100');
             deleteAllCompletedImg.classList.remove('lg:cursor-default');
-            deleteAllCompletedDots.classList.remove('h-0');
             deleteAllCompletedDots.classList.add('h-[24px]', 'my-[13px]');
         } else {
             menuBurgerBlock.classList.remove('burgerOpen');
             burgerIcon.setAttribute('src', 'img/menuIconBurger.svg');
 
-            renameBlock.classList.remove('left-[-84px]');
-            renameBlock.classList.add('left-[-34px]', 'lg:opacity-0');
+            renameBlock.classList.remove('left-[-84px]', 'lg:opacity-100');
             renameImg.classList.add('lg:cursor-default');
             renameDots.classList.remove('w-[24px]', 'mx-[13px]');
-            renameDots.classList.add('w-0');
 
-            deleteAllCompletedBlock.classList.remove('bottom-[-84px]');
-            deleteAllCompletedBlock.classList.add('bottom-[-34px]', 'lg:opacity-0');
+            deleteAllCompletedBlock.classList.remove('bottom-[-84px]', 'lg:opacity-100');
             deleteAllCompletedImg.classList.add('lg:cursor-default');
             deleteAllCompletedDots.classList.remove('h-[24px]', 'my-[13px]');
-            deleteAllCompletedDots.classList.add('h-0');
         }
     })
 
@@ -220,11 +211,9 @@ if (localStorage.length === 0 || localStorage.getItem('name') === null) {
 
     newTaskButton.addEventListener('click', () => {
         if (newTaskButtonCondition) {
-            plusIcon.classList.remove('rotate-0');
             plusIcon.classList.add('rotate-45');
             taskButtonText.textContent = 'Cancel';
-            topDots.classList.remove('h-0', 'opacity-0');
-            topDots.classList.add('h-[24px]', 'my-[13px]');
+            topDots.classList.add('h-[24px]', 'my-[13px]', 'opacity-100');
             taskValue.classList.remove('opacity-0');
             taskValue.disabled = false;
             taskValue.value = '';
@@ -232,14 +221,11 @@ if (localStorage.length === 0 || localStorage.getItem('name') === null) {
             newTaskButtonCondition = false;
         } else {
             plusIcon.classList.remove('rotate-45');
-            plusIcon.classList.add('rotate-0');
             taskButtonText.textContent = 'Add New Task';
-            topDots.classList.remove('h-[24px]', 'my-[13px]');
-            topDots.classList.add('h-0', 'opacity-0');
+            topDots.classList.remove('h-[24px]', 'my-[13px]', 'opacity-100');
             taskValue.classList.add('opacity-0');
             taskValue.disabled = true;
-            bottomDots.classList.remove('h-[24px]', 'my-[13px]');
-            bottomDots.classList.add('h-0', 'opacity-0');
+            bottomDots.classList.remove('h-[24px]', 'my-[13px]', 'opacity-100');
             confirmButton.classList.add('opacity-0');
             confirmButton.disabled = true;
             newTaskButtonCondition = true;
@@ -247,25 +233,20 @@ if (localStorage.length === 0 || localStorage.getItem('name') === null) {
     })
 
     taskValue.addEventListener('input', (event) => {
+        autosize(taskValue);
         if (event.target.value[0] !== ' ' && event.target.value[0] !== '\n' && event.target.value.length !== 0) {
-            bottomDots.classList.remove('h-0', 'opacity-0');
-            bottomDots.classList.add('h-[24px]', 'my-[13px]');
+            bottomDots.classList.add('h-[24px]', 'my-[13px]', 'opacity-100');
             confirmButton.classList.remove('opacity-0');
             confirmButton.disabled = false;
         } else {
-            bottomDots.classList.remove('h-[24px]', 'my-[13px]');
-            bottomDots.classList.add('h-0', 'opacity-0');
+            bottomDots.classList.remove('h-[24px]', 'my-[13px]', 'opacity-100');
             confirmButton.classList.add('opacity-0');
             confirmButton.disabled = true;
         }
     })
 
-    taskValue.addEventListener('input', () => autosize(taskValue));
-
     confirmButton.addEventListener('click', () => {
-
-        bottomDots.classList.remove('h-[24px]', 'my-[13px]');
-        bottomDots.classList.add('h-0', 'opacity-0');
+        bottomDots.classList.remove('h-[24px]', 'my-[13px]', 'opacity-100');
         confirmButton.classList.add('opacity-0');
         confirmButton.disabled = true;
         generateTask(
@@ -286,7 +267,7 @@ if (localStorage.length === 0 || localStorage.getItem('name') === null) {
         temporaryArray = undefined;
         taskValue.value = '';
         autosize.destroy(taskValue);
-        document.querySelector('.amountOfTasks').textContent = String(taskListParent.children.length);
+        amountOfTasks.textContent = String(taskListParent.children.length);
     })
 
     document.querySelector('.taskList').addEventListener('click', (event) => {
@@ -297,7 +278,7 @@ if (localStorage.length === 0 || localStorage.getItem('name') === null) {
             temporaryArray.splice(temporaryObjIndex, 1);
             setTaskList(temporaryArray);
             event.target.closest('.task').remove();
-            document.querySelector('.amountOfTasks').textContent = String(taskListParent.children.length);
+            amountOfTasks.textContent = String(taskListParent.children.length);
         }
         if (event.target.classList.contains('checkbox')) { //? completed task
             if (temporaryArray[temporaryObjIndex].completed === false) {
@@ -315,8 +296,3 @@ if (localStorage.length === 0 || localStorage.getItem('name') === null) {
         temporaryObjIndex = undefined;
     })
 }
-
-
-//TODO • Implement two functions that will take 1 value(topDots/bottomDots). This significantly code the animation of the dots by half.
-
-//TODO • Allocate parts of the code to files.
